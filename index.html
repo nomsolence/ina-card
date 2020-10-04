@@ -31,7 +31,14 @@ s#$css#\=system('cat card.css')#
     <div class=panel id=left></div>
     <div class=panel id=right></div>
     
+    <!--ex> d <-->
     <img id=tako src=takoflap.gif />
+    <!--ex> a
+    <img id=tako src="data:image/gif;base64,$image" />
+.
+    | s/$image/\=system('base64 -i takoflap.gif | tr -d "\n"')/
+    <-->
+    
     
     <div id=background></div>
     <div id=rain></div>
