@@ -13,75 +13,16 @@
 <meta property=og:image content="https://pbs.twimg.com/media/Ehw3YGDUwAEnhlX?format=jpg&name=orig" />
 
 
-<style>
-    
-    html, body { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; }
-    
-    #background {
-        position: absolute;
-        width: 100%; height: 100%;
-        background-image: url('https://pbs.twimg.com/media/Ehw3YGDUwAEnhlX?format=jpg&name=orig'), url('bg.jpg');
-        background-size: cover;
-        background-position: 60% 40%;
-    }
-    
-    #footer {
-        z-index: 1;
-        position: absolute;
-        bottom: 8pt; right: 8pt;
-        bottom: 2vmin; right: 2vmin;
-        font-family: sans-serif;
-        font-size: 13pt;
-        text-shadow: 1pt 1pt 0 #000, 1.5pt 1.5pt 1.2pt #000;
-        text-align: right;
-        color: #d2d2d2;
-    }
-    p { margin: 0; }
-    #footer a { font-size: 17pt; color: #80547a; color: #ab3a3a; font-weight: 600; }
-    #illusion { color: #6d6682; }
-    #yoroshiku { color: #a66174; }
-    
-    #tako {
-        z-index: 8;
-        display: block;
-        position: absolute;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        visibility: visible;
-        opacity: 1;
-        transition: visibility 0s 222ms, opacity 222ms ease-in-out;
-    }
-    
-    .panel {
-        z-index: 2;
-        position: fixed;
-        top: 0; bottom: 0;
-        width: 50%;
-        box-sizing: border-box;
-        border: none;
-        border-color: #332a3b;
-        border-style: solid;
-        background-image: url('panel.png');
-        background-repeat: repeat-x;
-        background-origin: content-box;
-        background-size: auto 100%;
-        animation-play-state: paused; /* noscript will run after 1s */
-        animation-fill-mode: forwards;
-        animation-duration: 3s;
-    }
-    
-    .noscript .tako { display: none; }
-    .noscript .panel { animation-play-state: running; animation-delay: 1s; }
-    
-    #loop { z-index: 8; margin-top: 5pt; }
-    
-    .running { animation-play-state: running; }
-    #left { border-right-width: 8px; left: 0; background-position: top right; animation-name: slide-left; }
-    #right { border-left-width: 8px; right: 0; background-position: top left; animation-name: slide-right; }
-    @keyframes slide-left { 100% { transform: translateX(-100%); } }
-    @keyframes slide-right { 100% { transform: translateX(100%); } }
-    
-</style>
+<!--ex> d <-->
+<link rel=stylesheet href=card.css />
+<!--ex> a
+<style>$css</style>
+.
+s#$css#\=system('cat card.css')#
+%s#panel.png#data:image/png;base64,$panel#
+%s#$panel#\=system('base64 -i panel.png | tr -d "\n"')#
+<-->
+
 
 
 <body class=noscript>
