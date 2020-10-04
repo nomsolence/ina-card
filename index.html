@@ -1,0 +1,244 @@
+
+<!-- 4649 <3 -->
+
+<meta charset=utf-8>
+<title>Ninomae Ina'nis End Card</title>
+
+<!-- blank favicon -->
+<link rel=icon type=image/x-icon href=data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII= />
+
+<meta name=viewport content=width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0>
+
+<meta property=og:description content="Ina's end card; forever">
+<meta property=og:image content="https://pbs.twimg.com/media/Ehw3YGDUwAEnhlX?format=jpg&name=orig">
+
+
+<style>
+    
+    html, body { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; }
+    
+    #background {
+        position: absolute;
+        width: 100%; height: 100%;
+        background-image: url('https://pbs.twimg.com/media/Ehw3YGDUwAEnhlX?format=jpg&name=orig'), url('bg.jpg');
+        background-size: cover;
+        background-position: 60% 40%;
+    }
+    
+    #footer {
+        z-index: 1;
+        position: absolute;
+        bottom: 8pt; right: 8pt;
+        bottom: 2vmin; right: 2vmin;
+        font-family: sans-serif;
+        font-size: 13pt;
+        text-shadow: 1pt 1pt 0 #000, 1.5pt 1.5pt 1.2pt #000;
+        text-align: right;
+        color: #d2d2d2;
+    }
+    p { margin: 0; }
+    #footer a { font-size: 17pt; color: #80547a; color: #ab3a3a; font-weight: 600; }
+    #illusion { color: #6d6682; }
+    #yoroshiku { color: #a66174; }
+    
+    #tako {
+        z-index: 8;
+        display: block;
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        visibility: visible;
+        opacity: 1;
+        transition: visibility 0s 222ms, opacity 222ms ease-in-out;
+    }
+    
+    .panel {
+        z-index: 2;
+        position: fixed;
+        top: 0; bottom: 0;
+        width: 50%;
+        box-sizing: border-box;
+        border: none;
+        border-color: #332a3b;
+        border-style: solid;
+        background-image: url('panel.png');
+        background-repeat: repeat-x;
+        background-origin: content-box;
+        background-size: auto 100%;
+        animation-play-state: paused; /* noscript will run after 1s */
+        animation-fill-mode: forwards;
+        animation-duration: 3s;
+    }
+    
+    .noscript .tako { display: none; }
+    .noscript .panel { animation-play-state: running; animation-delay: 1s; }
+    
+    #loop { z-index: 8; margin-top: 5pt; }
+    
+    .running { animation-play-state: running; }
+    #left { border-right-width: 8px; left: 0; background-position: top right; animation-name: slide-left; }
+    #right { border-left-width: 8px; right: 0; background-position: top left; animation-name: slide-right; }
+    @keyframes slide-left { 100% { transform: translateX(-100%); } }
+    @keyframes slide-right { 100% { transform: translateX(100%); } }
+    
+</style>
+
+
+<body class=noscript>
+    <script>document.body.className = ''</script>
+    
+    <div class=panel id=left></div>
+    <div class=panel id=right></div>
+    
+    <img id=tako src=takoflap.gif>
+    
+    <div id=background></div>
+    <div id=rain></div>
+    
+    <div id=footer>
+        <p>Code <span id=yoroshiku>Braincell #4649</span></p>
+        <p>Loop <span id=illusion>Braincell #1253 | Illusion</span></p>
+        <p>Art &amp; bgm <a target=_blank href=https://twitter.com/ninomaeinanis/status/1304979032149078016>Ninomae Ina'nis</a></p>
+        
+        <noscript>
+            <audio id=loop autoplay loop controls preload=auto>
+                <source src=bg-loop.m4a?embed type=audio/mp4>
+                <source src=bg-loop.mp3?embed type=audio/mpeg>
+                <source src=bg-loop.ogg?embed type=audio/ogg>
+            </audio>
+        </noscript>
+    </p>
+    
+    <script>
+        
+        /* Loading indicator */
+        var tako = document.getElementById('tako')
+        /* Force click to play media */
+        var panels = Array.from(document.getElementsByClassName('panel'))
+        
+        /* Audio ready to play, get click */
+        var playing = false
+        function readyToPlay(callback) {
+            
+            tako.style.opacity = '0'
+            tako.style.visibility = 'hidden'
+            
+            // todo: detect autoplay
+            panels.concat(tako).forEach(l => {
+                l.style.cursor = 'pointer'
+                l.addEventListener('click', function() {
+                    panels.forEach(p => p.classList.add('running'))
+                    // idempotency
+                    if(!playing) callback()
+                    playing = true
+                })
+            })
+            
+        }
+        
+        /* Audio element method (fallback) **/
+        var audio
+        var fallenBack = false
+        function fallback() {
+            if (fallenBack) console.error("Already fell ;-;")
+            fallenBack = true
+            
+            console.log("Falling back to HTML5 <audio>")
+            document.getElementById('footer').insertAdjacentHTML(
+                'beforeend',
+                document.getElementsByTagName('noscript')[0].innerText
+            )
+            
+            audio = document.getElementById('loop')
+            audio.addEventListener('loadeddata', function() {
+                readyToPlay(function() {
+                    console.log("Playing using <audio> fallback")
+                    audio.play()
+                })
+            })
+            // TODO: gapless-ish by using two audio elements
+        }
+        
+        /* WebAudio (intro + gapless) */
+        // TODO: determine encoding
+        var introSrc = 'bg-intro.m4a?webaudio'
+        var loopSrc = 'bg-loop.m4a?webaudio'
+        
+        // Safari polyfill
+        /* https://gist.github.com/jakearchibald/131d7101b134b6f7bed1d8320e4da599 */
+        if (!window.AudioContext && window.webkitAudioContext) {
+            const oldFunc = webkitAudioContext.prototype.decodeAudioData
+            webkitAudioContext.prototype.decodeAudioData = function(arraybuffer) {
+                return new Promise((resolve, reject) => {
+                    oldFunc.call(this, arraybuffer, resolve, reject)
+                })
+            }
+        }
+        
+        // Detect Chrome (requires user input before creating the audio context)
+        
+        
+        // All of this is just for gapless playback
+        var AudioContext = window.AudioContext || window.webkitAudioContext
+        try { var context = new AudioContext() }
+        catch(e) {
+            console.error(e)
+            fallback()
+        }
+        
+        var introSource
+        var loopSource
+        if (context) {
+            
+            // Using promises as callbacks for simplicity
+            // https://caniuse.com/?search=await
+            
+            fetch(introSrc)
+            .then(response => response.arrayBuffer())
+            .then(buffer => context.decodeAudioData(buffer))
+            .catch(e => {
+                console.error(e)
+                fallback()
+            })
+            .then(introBuffer => {
+                 if (!introBuffer) return
+                 
+                 introSource = context.createBufferSource()
+                 introSource.buffer = introBuffer
+                 introSource.connect(context.destination)
+                 
+                 readyToPlay(function() {
+                     console.log("Playing using WebAudio API")
+                     introSource.start()
+                 })
+                 
+                 fetch(loopSrc)
+                 .then(response => response.arrayBuffer())
+                 .then(buffer => context.decodeAudioData(buffer))
+                 .catch(e => {
+                     console.error(e)
+                     // todo: test this path
+                     console.log('Oh no, failed to load loop')
+                     introSource.loop = true
+                 })
+                 .then(loopBuffer => {
+                     if (!loopBuffer) return
+                     loopSource = context.createBufferSource()
+                     loopSource.buffer = loopBuffer
+                     loopSource.connect(context.destination)
+                     loopSource.loop = true
+                     loopSource.start(introBuffer.duration)
+                 })
+                
+            })
+            
+        }
+    </script>
+    
+</body>
+
+<!-- Made with love <3 -->
+<!-- Come join the Ina'nis fan discord~ https://discord.gg/tentacult -->
+
+<!-- todo: <audio> <audio> hot swapping for better gap with fallback -->
+
