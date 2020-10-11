@@ -35,7 +35,7 @@ s#$css#\=system('cat card.css')#
 
 
 
-<body class=noscript>
+<body class=noscript onresize="resize()">
     <script>document.body.className = ''</script>
     
     <div class=panel id=left></div>
@@ -50,7 +50,12 @@ s#$css#\=system('cat card.css')#
     <-->
     
     
-    <div id=background></div>
+    <audio id="inaSound">
+        <source src="Ina_-_Whats_Up_Dude.mp3" type="audio/mp3">
+    </audio>
+    <div id=background>
+        <div id="circle" onclick="inaSound()"></div>
+    </div>
     <div id=rain></div>
     
     <div id=footer>
