@@ -115,9 +115,7 @@ p { margin: 0; }
         
         <noscript>
             <audio id=loop autoplay loop controls preload=auto>
-                <source src=bg-loop.m4a?embed type=audio/mp4>
                 <source src=bg-loop.mp3?embed type=audio/mpeg>
-                <source src=bg-loop.ogg?embed type=audio/ogg>
             </audio>
         </noscript>
     </p>
@@ -174,9 +172,9 @@ function fallback() {
 }
 
 /* WebAudio (intro + gapless) */
-// TODO: determine encoding
-var introSrc = 'bg-intro.m4a?webaudio'
-var loopSrc = 'bg-loop.m4a?webaudio'
+// TODO: detect mp3 not supported
+var introSrc = 'bg-intro.mp3?webaudio'
+var loopSrc = 'bg-loop.mp3?webaudio'
 
 // Safari polyfill
 /* https://gist.github.com/jakearchibald/131d7101b134b6f7bed1d8320e4da599 */
