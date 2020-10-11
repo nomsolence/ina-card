@@ -49,9 +49,9 @@ function fallback() {
 }
 
 /* WebAudio (intro + gapless) */
-// TODO: determine encoding
-var introSrc = 'bg-intro.m4a?webaudio'
-var loopSrc = 'bg-loop.m4a?webaudio'
+// TODO: detect mp3 not supported
+var introSrc = 'bg-intro.mp3?webaudio'
+var loopSrc = 'bg-loop.mp3?webaudio'
 
 // Safari polyfill
 /* https://gist.github.com/jakearchibald/131d7101b134b6f7bed1d8320e4da599 */
