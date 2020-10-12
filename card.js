@@ -139,3 +139,4 @@ function inaSound(){
     let sound = document.getElementById("inaSound");
     sound.play();
 }
+window.onload = resize
