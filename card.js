@@ -123,3 +123,19 @@ if (context) {
     
 }
 
+function resize(){
+    let referenceW = 1924;
+    let referenceH = 948;
+    let w = window.outerWidth-12;
+    let h = window.outerHeight-108;
+    $newH = 10*(referenceH/h);
+    $newW = 4.5*(referenceW/w);
+    $newH = String($newH);
+    $newW = String($newW);
+    document.getElementById("circle").style.height = $newH.concat("%");
+    document.getElementById("circle").style.width = $newW.concat("%");
+}
+function inaSound(){
+    let sound = document.getElementById("inaSound");
+    sound.play();
+}
